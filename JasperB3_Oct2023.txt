@@ -1,0 +1,371 @@
+Jaspersoft:06/10/2023:
+iReports(looks like Netbeans IDE) - Older Name for jasper Reports tool
+Jaspersoft(looks like eclipse IDE) - New name for Jasper reports tool
+
+Jaspersoft - Take over by Tibco - Take over By Cloud Group(2023)
+
+Definition: Jasper Reports is an open source reporting tool built on JAVA. Which can represent data in both text as well as Graphically.
+
+All the Invoice Reports are also known as text/cann reports.
+All the reports which has Graphs are known as visualization reports.
+
+Advantages/Features of Jasper Reports:
+1) Open Source - No license and publicly available for customization.
+2) Jasper is capable of both Text and Visualization reports.
+3) Wide variety of data export options. - PDF, Excel, CSV, PPT, Word, HTML, XML, JSON
+4) Jasper has great/many data source lists. - Excel, CSV, JSON, XML, JDBC DB, Cloud DB
+5) Customizing the Jaspersoft Studio and Jasper Server as per our business needs.
+
+Repository Explorer: Folder place in Studio where it has 2 things
+1) Data Adapter - Its an interface which will allow us to connect to different data sources(like csv, excel, JDBC, MongDB, XML,JSON)
+2) Server
+
+DB's: Oracle/MySQL/PostgreSQL/Sybase/Netezza/DB2/Amazon Redshift 
+which will store the data in tablular(tables) format
+
+7/10/2023
+
+create table employee
+(
+EmpID int,
+Name varchar,
+Email varchar,
+location varchar,
+Salary int
+
+);
+
+insert into employee values (1, 'Ram', 'ram@gmail.com','Bangalore',50000);
+insert into employee values (2, 'Dinesh', 'dinesh@gmail.com','Bangalore',100000);
+insert into employee values (3, 'Viswa', 'viswa@gmail.com','Bangalore',200000);
+insert into employee values (4, 'Koushik', 'Koushik@gmail.com','Bangalore',80000);
+
+Created data adapter which connected to PostgreSQL
+Created a simple report by pointing to that data adapter and written SQL query to pull the employee data. brough all those fields from tbale to report and drag them into detail band. Click on preview to see the output.
+
+
+11/10/2023
+
+Data types: To represent what kind of data, we use data types.
+
+Integer - to store only numeric numbers without decimals - Ex: EMPID
+Long -  to store only numeric numbers without decimals, but it will store big integers - Ex ADHAAR
+Boolean - True/False - Ex: Marital status
+String - To store grouped characters "RAM12345@#"
+Double - To store decimal values - EX- product cost- 20.45
+BigDecimal -  To store bigger decimal values we use this data type - Ex: to store salaries, product cost
+Date - To store any date to be printed/manipulated we use Date data type: Ex: Emp DOB, DOJ
+
+java.lang.String
+
+Styles: To apply conditional colouring
+
+Advantages:
+1. Can apply Conditional colours.
+2. Code reusability
+
+Sort Fields: To sort the report output based on fields(Asc or desc), We can sort with either numbers or strings
+
+Task:
+Apply Styles for Product details(from Sample DB data adapter)
+Highlight product name as per below conditions
+From $5 - $10 - Yellow
+From $11 - $20 - Green
+From $21 - $30 - Orange
+Above $31  Red
+
+
+12/10/2023
+
+Variable: It's a place holder to hold some calculated valaues in it. 
+2 types of variables
+Deafualt - provided by Jaspsersoft
+Custom - created by Developer
+
+Aggregate Functions:
+SUM, MIN, MAX, AVG, COUNT, DISTINCT COUNT
+
+Rows:1,2,3,4,5,6
+Alternate Rows: 2,4,6
+
+4%2 = 0
+5%2 = 1
+
+Styles:
+We can apply only one style at a time to any element.
+Incase of back color style we have to uncheck the transperant option then only it will work.
+
+13/10/2023
+
+Variable: It's a place holder to hold the calculated/aggregated valaues of a specific field. 
+2 types of variables
+Deafualt var - provided by Jaspsersoft - Report_count, page_number, few more
+Custom var - created by Developer - Ex total_salary or total_prod_cost
+
+Ex:total_salary=SUM($F{salary})
+
+*To suppress any null values, property name is BlankWhenNull.
+
+15/10/2023: DB
+
+SQL:
+what is DB - Stored collection of data together in a place - Ex: MySQL, PostgreSQL, MS SQL, Oracle, Sybase, Netezza, Amazon 		  						Redshift, DB2
+        RDBMS- Relational Database Management System - Table relations
+        SQL - Structure Query Language - to communicate with any DB - insert/delete/creating db ojects/all kind of transactons               will be done with SQL
+Tools(IDE): MySQL(MysQL workbenk), Postgres(PgAdmin, Dbiewer, DataGrip), Oracle(plsql), Sybase and Redshift DB(Aginity), Dbiewer
+
+
+What is schema: Schema is like a folder to group all related data together
+What DDL/DML/DQL/TCL/DCL?
+	DDL -Data Def Lang -  
+	DML - Data Manipulation Lang
+	DQL - Data Query
+	TCL - Transactional Control lang
+	DCL - Data control Lang
+
+Table: Table is a physical DB oject, where it allows users to store data for the business cases. A, B, C, D, E
+View: Static DB oject - internally connect to all the tables and perform the select function and bring the data.
+select * from table/view
+Stored Procedure: Stored Proc is a programatic way of executing specific business function which takes some input and gives its respective output data.
+call stored_procedure_name(dept_id IN, Salary OUT)
+
+Break:30min
+How SELECT query with synatx?
+SELECT
+c1,c2
+FROM Table1
+JOIN
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+
+EX:
+select department, SUM(salary) 
+from employees
+where department like 'C%'
+group by department
+HAVING SUM(salary)>=4000000
+ORDER BY SUM(salary) desc;
+
+Aggregate functions in SQL COUNT, DISTINCT COUNT,MAX, MIN, AVG, SUM
+Where/Having/Case statement?
+
+CASE WHEN gender='F'
+THEN 'Female'
+WHEN gender='M'
+THEN 'Male'
+ELSE gender
+END as gender_c,
+
+JOINS - INNER JOIN, LEFT JOIN , RIGHT JOIN , Outer JOIN
+select *
+from employees e
+JOIN departments d ON d.department=e.department
+where d.department ilike 'co%';
+
+
+Primary Key:
+
+CREATE TABLE Emp(
+    empid int NOT NULL,
+    col2 varchar(50) NOT NULL,
+    col3 int,
+    …………….
+    PRIMARY KEY (empid)
+);
+
+
+CREATE TABLE contract_employees(
+    empid1 int NOT NULL,
+    col2 int NOT NULL,
+    col3 int,
+    ………...
+    PRIMARY KEY (col1),
+    FOREIGN KEY (empid1) REFERENCES Emp(empid)
+);
+
+Primary keys 
+
+
+select * 
+from Emp e
+JOIN contract_employess ce ON ce.empid1=e.empid 
+where ce.YOJ=2023;
+
+
+Advanced SQL
+ROW_NUMBER, RANK, DENSE_RANK, Sub query, CTE, Few Window Functions
+
+16/10/23: Parameters
+C:\Users\Ramtom\AppData\Local\Programs\goto
+
+Parameter is an input object which takes values as input and filter the report for that input values and give the respective output. 
+
+represented with $P{}
+default expression so that we dont have to always give the values.
+
+Today Task:
+Bring the employees data who satisfy the following criteria:
+I wanted to see only employees from Computers dept - parameter
+and sorted with gender
+and salary range between 80000 to 120000
+and apply the styles to highlight the employee name with RED color whose salary>100000
+and apply alternate row color
+Beautify the column headers
+
+
+17/10/2023: Differernt level of filtering in query and report
+
+Query level: we filter with where clause
+Report level: use print when expression for conditional printing, ,means only when that condition becomes true then only that particular elements will be printed.
+Conditional printing will be achieved with Print When Expression property. 
+
+Task:
+I wanted a employee report output with following scenarios
+Bring the employee data from region 3 aand region 5
+Salary between 80000 to 120000
+Department should be parameter
+Detail band values to bro printed only when number of employees are greater than 5
+Styles:must used to highlight salaries more than 1L and alternate row color.
+
+
+18/10/2023
+SQL:Joins we used
+The best band to be used for Table and Crosstab is Summary band
+Table: Jaspersoft table represents data in column basis.
+Crosstab: Jaspersoft Crosstab represents data in columns and rows basis.
+
+When to go for table: When the requirement to show the data only column basis then we chose Table.
+When to go for Crosstab: When the requirement to show the data dynamically against rows and columns.
+
+Task:
+Create a new report which shows division wise employee count and total salary for that division(division, emp_count,total_salary)
+These details should not be printed for Electronics division? scenario challenge - use google to find the solution
+
+
+19/10/2023
+&& --- AND
+|| --- OR
+
+TRUE && FALSE = 1 * 0 =FALSE
+TRUE || FALSE = 1 + 0 =TRUE
+
+Ternary operator: Ternary opr will be used to check the conditions and print custom values instead of printing DB values.
+
+A==B ? c : D
+
+2==2 ? 5 : 7
+
+2==3 ? 6 : 10
+
+
+category 
+if emp_count bw 70 to 90 then print Small division
+if emp_count bw 91 to 120 then print Medium division
+if emp_count bw 121 and above then print bigger division
+
+Task:
+JOIN Employee  --and Dept tables
+Print Dept and count of employees
+3rd column is Dept_size
+ if emp_count bw 5 to 20 then print small dept
+ if emp_count bw 21 to 40 then print Medium dept
+ if emp_count bw 41 and above then print bigger dept
+
+Conditional Print: dont print Sports and Tools department
+
+21/10/23
+Level of filters in jaspersoft Studio
+Level1: using where clause in Query dataset
+Level2: Using filter expresion in Qauery dataset
+Level3: applying printwhenexpression to the entire row/frame/band
+
+Tables:
+How to add custom column
+how to add variables to the columns(dept category)
+how to sort the table data
+how apply alternate row color
+how to use column footer (will print toatls at each page end)
+and table footer(will print total at end of table)
+
+Task:
+Create a table with division and emp_count
+add custom column with dvision_category with 3 bands of emp count
+
+if emp_count bw 70 to 90 then print small divi
+ if emp_count bw 91 to 120 then print Medium divi
+ if emp_count 121 and above then print bigger divi
+
+sort table with emp_count
+apply alternate_row_color
+
+
+24/10/2023
+Crosstab: To display dynamic data against rows and columns then we use Crosstab.
+Table: To display data aginst only columns then we use table.
+Sorting in crosstab, styles(alternate row clour var is ROW_COUNT), Measures
+
+Task:
+Create a crosstab with Dept as row groups and country as coulmn group and total_salary as measure.
+Apply alternate row color
+sort the country names in descending order. 
+
+
+25/10/23
+Groups: If you want to display Hierarchy data then we use Groups.
+Ex: Top 10 emp's data for each Country, Bring all the district info from different states
+
+Steps:
+1) get the field from main report dataset which you wanted to do the grouping(Country)
+2) Right click on the report and create a group, select the filed which you wanted to create group
+3) Put Country field in Group Header, calculation: No calc
+4) Bring table from palette, create new dataset with query which bring top 2 emp data using where filter(regions.country=$P{country_p})
+5) Go to table properties, select dataset, click parameters, clik add map parameter which we have created while making new data set, with the field.
+
+
+01/11/2023
+
+SubReport: Sub report is an report element which will be embedded into another rpeort.
+Why subreport: 
+1) When we wanted to show 2 reports data together. 
+2) When you wanted to show data from different queries together in a singel report.
+
+02/11/2023
+
+Break: We also called this as page break since its going to break the page into separate page
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

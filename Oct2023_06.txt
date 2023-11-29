@@ -1,0 +1,48 @@
+Jaspersoft:06/10/2023:
+iReports(looks like Netbeans IDE) - Older Name for jasper Reports tool
+Jaspersoft(looks like eclipse IDE) - New name for Jasper reports tool
+
+Jaspersoft - Take over by Tibco - Take over By Cloud Group(2023)
+
+Definition: Jasper Reports is an open source reporting tool built on JAVA. Which can represent data in both text as well as Graphically.
+
+All the Invoice Reports are also known as text/cann reports.
+All the reports which has Graphs are known as visualization reports.
+
+Advantages/Features of Jasper Reports:
+1) Open Source - No license and publicly available for customization.
+2) Jasper is capable of both Text and Visualization reports.
+3) Wide variety of data export options. - PDF, Excel, CSV, PPT, Word, HTML, XML, JSON
+4) Jasper has great/many data source lists. - Excel, CSV, JSON, XML, JDBC DB, Cloud DB
+5) Customizing the Jaspersoft Studio and Jasper Server as per our business needs.
+
+Repository Explorer: Folder place in Studio where it has 2 things
+1) Data Adapter - Its an interface which will allow us to connect to different data sources(like csv, excel, JDBC, MongDB, XML,JSON)
+2) Server
+
+DB's: Oracle/MySQL/PostgreSQL/Sybase/Netezza/DB2/Amazon Redshift 
+which will store the data in tablular(tables) format
+
+7/10/2023
+
+create table employee
+(
+EmpID int,
+Name varchar,
+Email varchar,
+location varchar,
+Salary int
+
+);
+
+insert into employee values (1, 'Ram', 'ram@gmail.com','Bangalore',50000);
+insert into employee values (2, 'Dinesh', 'dinesh@gmail.com','Bangalore',100000);
+insert into employee values (3, 'Viswa', 'viswa@gmail.com','Bangalore',200000);
+insert into employee values (4, 'Koushik', 'Koushik@gmail.com','Bangalore',80000);
+
+Created data adapter which connected to PostgreSQL
+Created a simple report by pointing to that data adapter and written SQL query to pull the employee data. brough all those fields from tbale to report and drag them into detail band. Click on preview to see the output.
+
+
+
+
