@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RetailInvoice_19_9_2020" language="groovy" pageWidth="612" pageHeight="792" columnWidth="592" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="197"/>
+	<subDataset name="dataset1"/>
+	<subDataset name="companyDetails">
+		<parameter name="company" class="java.lang.String">
+			<defaultValueExpression><![CDATA["MSH"]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+INITCAP( DESCRIPTION) DESCRIPTION,
+ INITCAP(BRANCH_NAME) BRANCH_NAME
+ ,INITCAP(CITY) CITY,
+ INITCAP(STATE_NAME) STATE_NAME,
+ INITCAP(COUNTRY) COUNTRY
+
+ ,
+INITCAP( INV_HEADER_LINE_1)  INV_HEADER_LINE_1,
+ INITCAP(INV_HEADER_LINE_2)  INV_HEADER_LINE_2,
+( INV_HEADER_LINE_3)  INV_HEADER_LINE_3,
+ (INV_HEADER_LINE_4)  INV_HEADER_LINE_4,
+ (INV_HEADER_LINE_5)  INV_HEADER_LINE_5,
+
+
+ INV_HEADER_LINE_1_FONT_SIZE,
+ INV_HEADER_LINE_2_FONT_SIZE,
+  INV_HEADER_LINE_3_FONT_SIZE,
+ INV_HEADER_LINE_4_FONT_SIZE,
+ INV_HEADER_LINE_5_FONT_SIZE,
+ INV_HEADER_LINE_1_FONT_NAME,
+ INV_HEADER_LINE_2_FONT_NAME,
+ ( INV_HEADER_LINE_3_FONT_NAME) INV_HEADER_LINE_3_FONT_NAME,
+ INV_HEADER_LINE_4_FONT_NAME,
+ INV_HEADER_LINE_5_FONT_NAME,
+ BANK,ACCOUNT_NO,
+ ACCOUNT_NAME, IFSC ,
+ COMPANY_BANK_BRANCH_NAME,
+GSTIN_NUMBER,
+PAN_NUMBER
+  FROM COMPANY_DETAILS WHERE COMPANY =  'MSH']]>
+		</queryString>
+		<field name="DESCRIPTION" class="java.lang.String"/>
+		<field name="BRANCH_NAME" class="java.lang.String"/>
+		<field name="CITY" class="java.lang.String"/>
+		<field name="STATE_NAME" class="java.lang.String"/>
+		<field name="COUNTRY" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_1" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_2" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_3" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_4" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_5" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_1_FONT_SIZE" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_2_FONT_SIZE" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_3_FONT_SIZE" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_4_FONT_SIZE" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_5_FONT_SIZE" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_1_FONT_NAME" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_2_FONT_NAME" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_3_FONT_NAME" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_4_FONT_NAME" class="java.lang.String"/>
+		<field name="INV_HEADER_LINE_5_FONT_NAME" class="java.lang.String"/>
+		<field name="BANK" class="java.lang.String"/>
+		<field name="ACCOUNT_NO" class="java.lang.String"/>
+		<field name="ACCOUNT_NAME" class="java.lang.String"/>
+		<field name="IFSC" class="java.lang.String"/>
+		<field name="COMPANY_BANK_BRANCH_NAME" class="java.lang.String"/>
+		<field name="GSTIN_NUMBER" class="java.lang.String"/>
+		<field name="PAN_NUMBER" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset2"/>
+	<subDataset name="Criteria">
+		<parameter name="company" class="java.lang.String">
+			<defaultValueExpression><![CDATA["MSH"]]></defaultValueExpression>
+		</parameter>
+		<parameter name="v_series" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="v_no" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+
+    st."VOUCHER_SERIES"  AS "VOUCHER_SERIES" ,
+     lpad(st.voucher_number,6,'000')  AS voucher_number,
+     INITCAP(cam."DESCRIPTION") DESCRIPTION,
+      INITCAP(cam."ADDRESS1" ) ADDRESS1,
+      INITCAP(cam."ADDRESS2" ) ADDRESS2,
+      INITCAP(cam."ADDRESS3" ) ADDRESS3,
+      INITCAP(cam."ADDRESS4" ) ADDRESS4,
+     INITCAP(cam."CITY")  CITY,
+     st."VOUCHER_DATE",
+     INITCAP(cmp.DESCRIPTION) ForName,
+     INITCAP(cmp.CITY) CmpCity,
+      INITCAP(cmp.STATE_NAME) STATE_NAME ,
+     cmp.STATE_CODE,
+     cmp.CIN_NUMBER,
+     cmp.GSTIN_NUMBER,
+     cmp.PAN_NUMBER,
+     cmp.BRANCH_ID,
+      INITCAP(cmp.BRANCH_NAME) BRANCH_NAME,
+
+
+      INITCAP(st.STORE_TRANS_ID) Store_Trans_Id,
+      cam.country,
+      cam.region,
+      cam.phone1,
+      cam.phone2,
+      cam.pan_number  customer_pan
+
+FROM
+     "STORE_TRANSACTIONS" st
+
+    , "COMPANY_ACCOUNT_MASTERS" cam
+    ,COMPANY_DETAILS cmp
+
+WHERE
+
+  st.voucher_Series = $P{v_series}
+ AND st.voucher_number = $P{v_no}
+AND st.company= $P{company}
+  AND st."COMPANY" = cam."COMPANY" (+)
+      AND st."PARTY_CODE" = cam."ACCOUNT_CODE" (+)
+      AND cmp.COMPANY=st.COMPANY
+      and rownum=1]]>
+		</queryString>
+		<field name="VOUCHER_SERIES" class="java.lang.String"/>
+		<field name="VOUCHER_NUMBER" class="java.lang.String"/>
+		<field name="DESCRIPTION" class="java.lang.String"/>
+		<field name="ADDRESS1" class="java.lang.String"/>
+		<field name="ADDRESS2" class="java.lang.String"/>
+		<field name="ADDRESS3" class="java.lang.String"/>
+		<field name="ADDRESS4" class="java.lang.String"/>
+		<field name="CITY" class="java.lang.String"/>
+		<field name="VOUCHER_DATE" class="java.sql.Timestamp"/>
+		<field name="FORNAME" class="java.lang.String"/>
+		<field name="CMPCITY" class="java.lang.String"/>
+		<field name="STATE_NAME" class="java.lang.String"/>
+		<field name="STATE_CODE" class="java.lang.String"/>
+		<field name="CIN_NUMBER" class="java.lang.String"/>
+		<field name="GSTIN_NUMBER" class="java.lang.String"/>
+		<field name="PAN_NUMBER" class="java.lang.String"/>
+		<field name="BRANCH_ID" class="java.math.BigDecimal"/>
+		<field name="BRANCH_NAME" class="java.lang.String"/>
+		<field name="STORE_TRANS_ID" class="java.lang.String"/>
+		<field name="COUNTRY" class="java.lang.String"/>
+		<field name="REGION" class="java.lang.String"/>
+		<field name="PHONE1" class="java.lang.String"/>
+		<field name="PHONE2" class="java.lang.String"/>
+		<field name="CUSTOMER_PAN" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset3"/>
+	<parameter name="company" class="java.lang.String">
+		<defaultValueExpression><![CDATA["MSH"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="v_series" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="v_no" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Dev\\iReport4.5.0\\iReport_workspace\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+ sti.voucher_Series,
+ lpad(sti.voucher_number,6,'000')  AS voucher_number,
+ sti.serial_number,
+  STI.sub_seq_number,
+  STI.sub_sub_seq_number,
+    ABS(sti.rate) rate,
+   ABS( nvl(sti.item_value,0)) item_value,
+    ABS(nvl(sti.total_item_value,0)) total_item_value,
+    ABS(nvl(sti.total_item_value_after_gst,0)) total_item_value_after_gst,
+    ABS(nvl(sti.total_gst_value,0))            total_gst_value,
+    ABS(STI.WASTE_PCT) wstg,
+  products.hsn_code,
+  products.GST_RATE_SALES_PURCHASE,
+  DECODE ( sti.item_name , NULL , INITCAP ( products.ITEM_NAME ),  INITCAP (sti.item_name) ) item_name ,
+  ABS(STI.ITEM_TOTAL_PCS) ITEM_TOTAL_PCS,
+  STI.ITEM_TYPE,
+  DECODE(STI.ITEM_TYPE,'MTL',ABS(STI.GROSS_WEIGHT),0) GW,
+  DECODE(STI.ITEM_TYPE,'MTL',ABS(STI.NET_WEIGHT),0) NW,
+  DECODE(STI.ITEM_TYPE,'MTL',ABS(STI.CHARGABLE_WEIGHT),0) CHG_WT,
+  DECODE(STI.ITEM_TYPE,'MTL',ABS(STI.RATE),0) METAL_RATE,
+  DECODE(STI.ITEM_TYPE,'MTL',ABS(STI.TOTAL_ITEM_VALUE) - ABS(STI.MISC_CHARGES_TOTAL) - ABS(STI.MISC_EXPENSES_TOTAL) , 0 ) METAL_VALUE,
+  DECODE( STI.item_type , 'DMN' ,  abs ( nvl(sti.item_value,0)  )  )  Embedded_Diamond_value,
+  DECODE(sti.item_type , 'DMN' ,  0 , 'MTL' , 0 , 'WAX' , 0 ,  abs ( nvl(sti.item_value,0)  )   )         Col_stone_value ,
+ ABS(STI.MISC_CHARGES_TOTAL) total_lbr_chrgs,
+ABS(STI.MISC_EXPENSES_TOTAL) total_addl_chrgs,
+  DECODE(STI.ITEM_TYPE,'MTL', 0, 'WAX' , 0, ABS(STI.GROSS_WEIGHT)) dia_COL_STONE_WEIGHT,
+  DECODE(STI.ITEM_TYPE,'MTL', 0, 'WAX' , 0, ABS(STI.RATE),0) dia_COL_STONE_RATE,
+  ABS(STI."TOTAL_ITEM_VALUE") TOTAL_ITEM_VALUE,
+--  AMT_IN_WORDS,
+  b.*
+  ,ltrim ( rtrim ( to_char(ABS(STI.MISC_CHARGES),'99,990.00'))) || decode (sti.misc_charges_unit , 'PN',' %' , '')    Misc_charges
+  ,STI.MISC_CHARGES_UNIT lbr_unit,
+  tag_number,design_number,
+ABS  ( sti.net_weight * sti.rate    )  ITEM_VAL_CALCULATED_IN_RPT,
+sti.misc_expenses_total   addl_charges,
+sti.total_item_value_calculated,
+MISC_EXPENSES_TOTAL
+FROM "STORE_TRANSACTION_ITEMS" STI ,
+  "PRODUCTS" products,
+   (SELECT 1 as gid, 'Office Copy' as copy from dual
+UNION ALL
+SELECT 2 as gid, 'Customer Copy' as copy from dual)b
+
+   WHERE
+      STI.voucher_Series = $P{v_series}
+ AND STI.voucher_number = to_number($P{v_no})
+AND STI.company=$P{company}
+ AND STI."COMPANY" = products."COMPANY" (+)
+     AND STI."ITEM_CODE" = products."ITEM_CODE" (+)
+        --  AND STI."COMPANY"=GPD_data."COMPANY" (+)
+--     AND STI."ACCOUNT_CODE"=GPD_data."ACCOUNT_CODE" (+)
+     ORDER BY
+   b.GID,
+ STI.serial_number ASC,
+   STI.sub_seq_number ASC,
+  STI.sub_sub_seq_number ASC]]>
+	</queryString>
+	<field name="VOUCHER_SERIES" class="java.lang.String"/>
+	<field name="VOUCHER_NUMBER" class="java.lang.String"/>
+	<field name="SERIAL_NUMBER" class="java.math.BigDecimal"/>
+	<field name="SUB_SEQ_NUMBER" class="java.math.BigDecimal"/>
+	<field name="SUB_SUB_SEQ_NUMBER" class="java.math.BigDecimal"/>
+	<field name="RATE" class="java.math.BigDecimal"/>
+	<field name="ITEM_VALUE" class="java.math.BigDecimal"/>
+	<field name="TOTAL_ITEM_VALUE" class="java.math.BigDecimal"/>
+	<field name="TOTAL_ITEM_VALUE_AFTER_GST" class="java.math.BigDecimal"/>
+	<field name="TOTAL_GST_VALUE" class="java.math.BigDecimal"/>
+	<field name="WSTG" class="java.math.BigDecimal"/>
+	<field name="HSN_CODE" class="java.lang.String"/>
+	<field name="GST_RATE_SALES_PURCHASE" class="java.math.BigDecimal"/>
+	<field name="ITEM_NAME" class="java.lang.String"/>
+	<field name="ITEM_TOTAL_PCS" class="java.math.BigDecimal"/>
+	<field name="ITEM_TYPE" class="java.lang.String"/>
+	<field name="GW" class="java.math.BigDecimal"/>
+	<field name="NW" class="java.math.BigDecimal"/>
+	<field name="CHG_WT" class="java.math.BigDecimal"/>
+	<field name="METAL_RATE" class="java.math.BigDecimal"/>
+	<field name="METAL_VALUE" class="java.math.BigDecimal"/>
+	<field name="EMBEDDED_DIAMOND_VALUE" class="java.math.BigDecimal"/>
+	<field name="COL_STONE_VALUE" class="java.math.BigDecimal"/>
+	<field name="TOTAL_LBR_CHRGS" class="java.math.BigDecimal"/>
+	<field name="TOTAL_ADDL_CHRGS" class="java.math.BigDecimal"/>
+	<field name="DIA_COL_STONE_WEIGHT" class="java.math.BigDecimal"/>
+	<field name="DIA_COL_STONE_RATE" class="java.math.BigDecimal"/>
+	<field name="GID" class="java.math.BigDecimal"/>
+	<field name="COPY" class="java.lang.String"/>
+	<field name="MISC_CHARGES" class="java.lang.String"/>
+	<field name="LBR_UNIT" class="java.lang.String"/>
+	<field name="TAG_NUMBER" class="java.lang.String"/>
+	<field name="DESIGN_NUMBER" class="java.lang.String"/>
+	<field name="ITEM_VAL_CALCULATED_IN_RPT" class="java.math.BigDecimal"/>
+	<field name="ADDL_CHARGES" class="java.math.BigDecimal"/>
+	<field name="TOTAL_ITEM_VALUE_CALCULATED" class="java.math.BigDecimal"/>
+	<field name="MISC_EXPENSES_TOTAL" class="java.math.BigDecimal"/>
+	<variable name="totalAfterGST" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_ITEM_VALUE}.add($F{TOTAL_GST_VALUE})]]></variableExpression>
+	</variable>
+	<variable name="GST_amount" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{TOTAL_GST_VALUE}]]></variableExpression>
+	</variable>
+	<variable name="totalAmt" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_ITEM_VALUE}]]></variableExpression>
+	</variable>
+	<variable name="calcGSTAmt" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_ITEM_VALUE}*($F{GST_RATE_SALES_PURCHASE}/100)==0?null:$F{TOTAL_ITEM_VALUE}*($F{GST_RATE_SALES_PURCHASE}/100)]]></variableExpression>
+	</variable>
+	<variable name="totalGWT" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{GW}]]></variableExpression>
+	</variable>
+	<variable name="totalNWT" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{NW}]]></variableExpression>
+	</variable>
+	<variable name="totalMTLV" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{ITEM_VAL_CALCULATED_IN_RPT}]]></variableExpression>
+	</variable>
+	<variable name="totalDWT" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{DIA_COL_STONE_WEIGHT}]]></variableExpression>
+	</variable>
+	<variable name="totalGST" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_GST_VALUE} ==0? ( $V{calcGSTAmt}) :$F{TOTAL_GST_VALUE}]]></variableExpression>
+	</variable>
+	<variable name="totalLbr" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_LBR_CHRGS}?$F{TOTAL_LBR_CHRGS}:0]]></variableExpression>
+	</variable>
+	<variable name="totalDMNV" class="java.math.BigDecimal" resetType="Group" resetGroup="GID" calculation="Sum">
+		<variableExpression><![CDATA[$F{EMBEDDED_DIAMOND_VALUE}]]></variableExpression>
+	</variable>
+	<variable name="totalSTNV" class="java.math.BigDecimal" resetType="Group" resetGroup="GID">
+		<variableExpression><![CDATA[$F{COL_STONE_VALUE}]]></variableExpression>
+	</variable>
+	<variable name="variable1" class="java.lang.String"/>
+	<group name="GID" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{GID}]]></groupExpression>
+		<groupHeader>
+			<band height="51">
+				<subreport>
+					<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="590" height="47"/>
+					<subreportParameter name="v_series">
+						<subreportParameterExpression><![CDATA[$P{v_series}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="v_no">
+						<subreportParameterExpression><![CDATA[$P{v_no}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="company">
+						<subreportParameterExpression><![CDATA[$P{company}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Copy">
+						<subreportParameterExpression><![CDATA[$F{COPY}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RetailInvoice_20_9_2020_1_01PM_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="46">
+				<textField>
+					<reportElement x="18" y="0" width="64" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COPY}.equals("Office Copy")?"Description / Tag No":"Description"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="82" y="0" width="52" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["HSN Code"+"\n"+
+"HSN Sub Code"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="134" y="0" width="61" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Gross Wt"+"\n"+
+" ( gms ) "]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="195" y="0" width="59" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Net Wt"+"\n"+
+" ( gms ) "]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="254" y="0" width="58" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Dia/Col Wt"+"\n"+"( Cts )"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="361" y="0" width="61" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Metal Value"+"\n"+
+"Excl Lab/Makng" +"\n"+
+"Diamond Value"+"\n"+
+"Stone Value"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="422" y="0" width="57" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Labour / Making "+"\n"+
+" ( INR )"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="479" y="0" width="52" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Additional Expenses"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="531" y="0" width="59" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total Item Amt"+"\n"+
+"Before GST"+"\n"+
+"( INR )"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="18" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sr.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="312" y="0" width="49" height="46"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Rate]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="33">
+				<textField>
+					<reportElement x="0" y="1" width="40" height="24"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Totals "]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="40" y="1" width="40" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Gr. Wt"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="40" y="13" width="40" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Net Wt"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="82" y="1" width="40" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalGWT}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalGWT}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="82" y="13" width="40" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalNWT}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalNWT}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="172" y="13" width="40" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalNWT}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalNWT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="125" y="1" width="47" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Chg Wt"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="172" y="1" width="40" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalGWT}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalGWT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="125" y="13" width="47" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Dia/Col Wt"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="264" y="13" width="48" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalDMNV}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalDMNV}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="264" y="1" width="48" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalMTLV}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalMTLV}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="216" y="13" width="48" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Dia. Val."]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="216" y="1" width="48" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Mtl. Val."]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="316" y="13" width="52" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Lbr/making"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="316" y="1" width="52" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Stn.Etc.Val"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+					<reportElement x="368" y="13" width="55" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalLbr}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalLbr}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+					<reportElement x="368" y="1" width="55" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalSTNV}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalSTNV}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+					<reportElement x="531" y="13" width="61" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalLbr}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalLbr}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="468" y="1" width="63" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Val. Bef. GST"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="true">
+					<reportElement x="531" y="1" width="61" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{totalSTNV}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $V{totalSTNV}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="468" y="13" width="63" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Val. Aft. GST"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="427" y="1" width="41" height="12"/>
+					<box rightPadding="1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{TOTAL_ADDL_CHRGS}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="50">
+				<subreport>
+					<reportElement x="0" y="0" width="592" height="50"/>
+					<subreportParameter name="v_series">
+						<subreportParameterExpression><![CDATA[$F{VOUCHER_SERIES}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="v_no">
+						<subreportParameterExpression><![CDATA[$F{VOUCHER_NUMBER}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RetailInvoice_GST1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="SN">
+		<groupExpression><![CDATA[$F{SERIAL_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="118" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="0" width="590" height="118"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="companyDetails">
+						<datasetParameter name="company">
+							<datasetParameterExpression><![CDATA[$P{company}]]></datasetParameterExpression>
+						</datasetParameter>
+					</datasetRun>
+					<jr:listContents height="118" width="590">
+						<textField>
+							<reportElement x="0" y="78" width="590" height="39"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Arial" isBold="true" isItalic="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{INV_HEADER_LINE_3}==null?"":$F{INV_HEADER_LINE_3}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="39" width="590" height="39"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Arial" isBold="true" isItalic="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{INV_HEADER_LINE_2}==null?"":$F{INV_HEADER_LINE_2}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="0" width="590" height="39"/>
+							<box>
+								<pen lineWidth="0.5"/>
+								<topPen lineWidth="0.5"/>
+								<leftPen lineWidth="0.5"/>
+								<bottomPen lineWidth="0.5"/>
+								<rightPen lineWidth="0.5"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="Arial" size="26" isBold="true" isItalic="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{INV_HEADER_LINE_1}==null?"":$F{INV_HEADER_LINE_1}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="18" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{SUB_SEQ_NUMBER}==0 && $F{SUB_SUB_SEQ_NUMBER} == 0)?$F{SERIAL_NUMBER}+".":null]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="0" width="64" height="20"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COPY}.equals("Office Copy")?(($F{ITEM_NAME}.length()>10?$F{ITEM_NAME}.trim().substring(0,10):$F{ITEM_NAME})+""+($F{TAG_NUMBER}==null?"":"   ( "+$F{TAG_NUMBER}+" )")):$F{ITEM_NAME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="0" width="52" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HSN_CODE}==null?"":$F{HSN_CODE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="134" y="0" width="61" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GW}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $F{GW}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="195" y="0" width="59" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NW}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $F{NW}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="254" y="0" width="58" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[!$F{ITEM_TYPE}.equalsIgnoreCase("MTL")?($F{DIA_COL_STONE_WEIGHT}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null :$F{DIA_COL_STONE_WEIGHT}):null]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="312" y="0" width="49" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RATE}.compareTo( new java.math.BigDecimal(0) ) == 0 ? null : $F{RATE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="361" y="0" width="61" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ITEM_VAL_CALCULATED_IN_RPT}.compareTo( new java.math.BigDecimal(0) ) == 0?null:$F{ITEM_VAL_CALCULATED_IN_RPT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="422" y="0" width="57" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MISC_CHARGES}==null?"":new java.math.BigDecimal($F{MISC_CHARGES})+" "  +
+	($F{LBR_UNIT}.equals("UN")?" /gm":($F{LBR_UNIT}.equals("FLF")?"flat":$F{LBR_UNIT}.equals("PT")?"%":""))]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="479" y="0" width="52" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MISC_EXPENSES_TOTAL}==null?"":($F{MISC_EXPENSES_TOTAL}.compareTo( new java.math.BigDecimal(0) ) == 0?"":$F{MISC_EXPENSES_TOTAL})]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;(-#,##0.00)" isBlankWhenNull="true">
+				<reportElement x="531" y="0" width="59" height="20"/>
+				<box rightPadding="2">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTAL_ITEM_VALUE}.compareTo( new java.math.BigDecimal(0) ) == 0?null:
+$F{TOTAL_ITEM_VALUE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
