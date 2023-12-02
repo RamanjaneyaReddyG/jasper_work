@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employeesofdepartment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="50e7e1cc-9d20-4508-a2a0-8f6241168fe8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgresDB"/>
+	<parameter name="department" class="java.lang.String"/>
+	<parameter name="gender" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select distinct employee_id,gender,salary from employees
+where department=$P{department} and
+gender=$P{gender}
+group by employee_id
+order by salary desc,
+gender asc
+limit 3]]>
+	</queryString>
+	<field name="employee_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<field name="salary" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="salary"/>
+		<property name="com.jaspersoft.studio.field.label" value="salary"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="30" uuid="f3075e2a-36c0-4b8c-bf50-bd3a14fbd5a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bcbdce05-ae5b-4857-90e7-d7b9a3b3d22b"/>
+				</reportElement>
+				<text><![CDATA[employee_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="30" uuid="38d2971c-59ae-4928-8db6-ea8ca9ff3d51">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="709e59d2-9650-4ebc-beda-020f8de67173"/>
+				</reportElement>
+				<text><![CDATA[gender]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="30" uuid="c14ae8ca-b00b-4e72-82cb-ffccb91dac15">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c699ccc-b3da-4b88-bf9f-4c1324956d6c"/>
+				</reportElement>
+				<text><![CDATA[salary]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="30" uuid="e56daf6d-768d-474c-8b79-3a8ec21f0a06">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bcbdce05-ae5b-4857-90e7-d7b9a3b3d22b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="30" uuid="97a76767-120a-4d73-9557-7acaa4b9a423">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="709e59d2-9650-4ebc-beda-020f8de67173"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="30" uuid="4170cb6b-493a-4852-bb31-074eab3f0ec6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9c699ccc-b3da-4b88-bf9f-4c1324956d6c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

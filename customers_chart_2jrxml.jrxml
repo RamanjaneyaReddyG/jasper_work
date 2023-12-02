@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 8.2.0.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="customers_chart_2jrxml" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e0bba6ac-cc66-409d-a5e9-03b4d97484df">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="customers"/>
+	<queryString language="SQL">
+		<![CDATA[select * from customers]]>
+	</queryString>
+	<field name="customernumber" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="customernumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="customernumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="customername" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="customername"/>
+		<property name="com.jaspersoft.studio.field.label" value="customername"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="contactlastname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="contactlastname"/>
+		<property name="com.jaspersoft.studio.field.label" value="contactlastname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="contactfirstname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="contactfirstname"/>
+		<property name="com.jaspersoft.studio.field.label" value="contactfirstname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="phone"/>
+		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="addressline1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="addressline1"/>
+		<property name="com.jaspersoft.studio.field.label" value="addressline1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="addressline2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="addressline2"/>
+		<property name="com.jaspersoft.studio.field.label" value="addressline2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="city" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="city"/>
+		<property name="com.jaspersoft.studio.field.label" value="city"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="state" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="state"/>
+		<property name="com.jaspersoft.studio.field.label" value="state"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="postalcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="postalcode"/>
+		<property name="com.jaspersoft.studio.field.label" value="postalcode"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="country" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="country"/>
+		<property name="com.jaspersoft.studio.field.label" value="country"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="salesrepemployeenumber" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="salesrepemployeenumber"/>
+		<property name="com.jaspersoft.studio.field.label" value="salesrepemployeenumber"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="creditlimit" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="creditlimit"/>
+		<property name="com.jaspersoft.studio.field.label" value="creditlimit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="624" splitType="Stretch">
+			<componentElement>
+				<reportElement x="20" y="20" width="400" height="520" uuid="744bb4e0-1516-4445-9b6f-d49b783e37e4"/>
+				<hc:chart xmlns:hc="http://jaspersoft.com/highcharts" xsi:schemaLocation="http://jaspersoft.com/highcharts http://jaspersoft.com/schema/highcharts.xsd" type="StackedBar">
+					<hc:chartSetting name="default">
+						<hc:chartProperty name="title.text" value=""/>
+						<hc:chartProperty name="credits.enabled" value="false"/>
+						<hc:chartProperty name="credits.href" value=""/>
+						<hc:chartProperty name="credits.text" value=""/>
+						<hc:chartProperty name="yAxis.title.text" value=""/>
+						<hc:chartProperty name="chart.zoomType" value="xy"/>
+					</hc:chartSetting>
+					<multiAxisData>
+						<multiAxisDataset>
+							<dataset>
+								<incrementWhenExpression><![CDATA[$F{country}.contains( "U" ) || $F{country}.contains( "u" )]]></incrementWhenExpression>
+							</dataset>
+						</multiAxisDataset>
+						<dataAxis axis="Rows">
+							<axisLevel name="Level1">
+								<labelExpression><![CDATA["Level Label expression"]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{country}]]></bucketExpression>
+									<labelExpression><![CDATA["Country: "+$F{country}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<dataAxis axis="Columns">
+							<axisLevel name="State">
+								<labelExpression><![CDATA[]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{state}]]></bucketExpression>
+									<labelExpression><![CDATA["State: "+$F{state}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<multiAxisMeasure name="Measure1" class="java.lang.Number" calculation="Count">
+							<labelExpression><![CDATA["Customer Count"]]></labelExpression>
+							<valueExpression><![CDATA[$F{customernumber}]]></valueExpression>
+						</multiAxisMeasure>
+					</multiAxisData>
+					<hc:series name="Measure1"/>
+				</hc:chart>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
