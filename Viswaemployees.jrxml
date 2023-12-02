@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 8.2.0.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Viswaemployees" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3dbb4c82-55fe-41de-9a7f-d45a8ffe6948">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#7FFFD4">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFFFEA">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Alternate row color">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#D1CFCF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Sarary&gt;100000">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{salary}>100000]]></conditionExpression>
+			<style forecolor="#FA1D19"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="Dataset1" uuid="3767b6a4-303b-4fd4-b3ee-26b1414de5d1">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+		<parameter name="Department1" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$F{department}]]></defaultValueExpression>
+		</parameter>
+		<parameter name="alternate row color Para" class="java.lang.String">
+			<defaultValueExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[select distinct department, employee_id,first_name,gender,salary
+from employees
+where gender='F'
+and salary>= 80000 and salary<=130000
+and department = $P{Department1}
+order by salary desc]]>
+		</queryString>
+		<field name="department" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="department"/>
+			<property name="com.jaspersoft.studio.field.label" value="department"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="employee_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="employee_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="first_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="first_name"/>
+			<property name="com.jaspersoft.studio.field.label" value="first_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="gender" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="gender"/>
+			<property name="com.jaspersoft.studio.field.label" value="gender"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="salary" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="salary"/>
+			<property name="com.jaspersoft.studio.field.label" value="salary"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<variable name="Sum of salary" class="java.lang.Integer" calculation="Sum">
+			<variableExpression><![CDATA[$F{salary}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="Department" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{department}]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select distinct department 
+from employees]]>
+	</queryString>
+	<field name="department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department"/>
+		<property name="com.jaspersoft.studio.field.label" value="department"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<group name="department">
+		<groupExpression><![CDATA[$F{department}]]></groupExpression>
+	</group>
+	<group name="Department" isStartNewPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{department}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<textField>
+					<reportElement x="0" y="0" width="220" height="30" uuid="ec08160e-9798-47d0-a9cd-19d9c576bdc4"/>
+					<textElement>
+						<font size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Department :" + $F{department}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="110">
+				<componentElement>
+					<reportElement style="Alternate row color" x="0" y="0" width="540" height="110" forecolor="#E0DEDE" uuid="e067157b-a450-4ec0-9f5a-486bae1ce02b">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+						<property name="com.jaspersoft.studio.components.autoresize.proportional" value="true"/>
+						<property name="com.jaspersoft.studio.components.autoresize.next" value="true"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="Dataset1" uuid="3830f7ce-01fb-465e-9ee9-9940c1fc759d">
+							<datasetParameter name="Department1">
+								<datasetParameterExpression><![CDATA[$F{department}]]></datasetParameterExpression>
+							</datasetParameter>
+							<datasetParameter name="alternate row color Para">
+								<datasetParameterExpression><![CDATA[$F{department}]]></datasetParameterExpression>
+							</datasetParameter>
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="132" uuid="4ef4b6b9-5acc-49bd-91f7-4b7c36d5e08d">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:columnHeader style="Table_CH" height="30">
+								<staticText>
+									<reportElement mode="Opaque" x="0" y="0" width="132" height="30" forecolor="#FFFFFF" backcolor="#9933CC" uuid="ac3ad420-b61e-4511-973f-0266426f5fe0"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Employee ID]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="Table_CH" height="30"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="Alternate row color" mode="Opaque" x="0" y="0" width="132" height="30" backcolor="#DBD9D9" uuid="35aa12a3-d472-436d-a348-a2bc8ca9eb79"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="116" uuid="74fc2965-eadc-47a5-a5ce-b8fc7c0c96ec">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:columnHeader style="Table_CH" height="30">
+								<staticText>
+									<reportElement mode="Opaque" x="0" y="0" width="116" height="30" forecolor="#FFFFFF" backcolor="#9933CC" uuid="275c48de-37ae-4bc3-b05e-b53e0e7761e5"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Employee Name]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="Table_CH" height="30"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="Sarary&gt;100000" mode="Opaque" x="0" y="0" width="116" height="30" isRemoveLineWhenBlank="true" forecolor="#F71A16" backcolor="#DBD9D9" uuid="42949ff9-f417-46f8-89d1-b7d017b2d687"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{first_name}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="131" uuid="9fbc9d4d-d1ff-4b18-b52a-a7872b4632b2">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:columnHeader style="Table_CH" height="30">
+								<staticText>
+									<reportElement mode="Opaque" x="0" y="0" width="131" height="30" forecolor="#FFFFFF" backcolor="#9933CC" uuid="c58a63ec-7da9-4d95-9915-172a28b3573d"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Department]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="Table_CH" height="30"/>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="Alternate row color" mode="Opaque" x="0" y="0" width="131" height="30" backcolor="#DBD9D9" uuid="6c720c4e-5eb0-40af-8b8a-ce56db966a8a"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="97" uuid="2c488848-5fd0-4ba4-8e4d-534c8e1f4293">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+							<jr:columnHeader style="Table_CH" height="30">
+								<staticText>
+									<reportElement mode="Opaque" x="0" y="0" width="97" height="30" forecolor="#FFFFFF" backcolor="#9933CC" uuid="52f01ccf-5202-47ee-afc0-0cae59b6b4f1"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Gender]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="Table_CH" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="97" height="30" uuid="ee67a8b7-9e29-4009-ba9e-9f795342c723"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="14" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA["Total Salary"]]></textFieldExpression>
+								</textField>
+							</jr:columnFooter>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="Alternate row color" mode="Opaque" x="0" y="0" width="97" height="30" backcolor="#DBD9D9" uuid="17261159-e9af-4d4b-bcb6-8479b7447ff6"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="64" uuid="bfa7dcb6-6d68-4a71-844c-3ff26505777c">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+							<jr:columnHeader style="Table_CH" height="30">
+								<staticText>
+									<reportElement mode="Opaque" x="0" y="0" width="64" height="30" forecolor="#FFFFFF" backcolor="#9933CC" uuid="d707fb7f-880d-46ff-a2c2-55fefb59b6a1"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<text><![CDATA[Salary]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:columnFooter style="Table_CH" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="64" height="30" uuid="c2c34acb-ab41-4168-9ccd-22ec51581d80"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="12" isBold="true"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$V{Sum of salary}]]></textFieldExpression>
+								</textField>
+							</jr:columnFooter>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement style="Alternate row color" mode="Opaque" x="0" y="0" width="64" height="30" backcolor="#DBD9D9" uuid="0068869d-9321-4dab-8d73-e571d5aaca07"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle"/>
+									<textFieldExpression><![CDATA[$F{salary}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+					</jr:table>
+				</componentElement>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="54">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="318" y="10" width="100" height="30" uuid="19e82317-2170-47e0-9e38-8e699d38982b"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="2" y="4" width="50" height="50" uuid="b92c7d3f-22fc-4f35-aae1-e4c9b276c68a"/>
+				<imageExpression><![CDATA["/Images/Employee images.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="123" y="10" width="100" height="30" uuid="586762c5-53de-4d8f-87e7-5d8414f12009"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="223" y="10" width="100" height="30" uuid="b1ba6798-517b-4ce2-8642-28103b232245"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

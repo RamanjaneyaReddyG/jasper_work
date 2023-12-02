@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Customers" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9f5d5d95-3493-4939-a73a-ab315c8ed034">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="customers"/>
+	<queryString language="SQL">
+		<![CDATA[select distinct country,state
+ from customers
+ order by country]]>
+	</queryString>
+	<field name="country" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="country"/>
+		<property name="com.jaspersoft.studio.field.label" value="country"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<field name="state" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="state"/>
+		<property name="com.jaspersoft.studio.field.label" value="state"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="customers"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="18" y="0" width="100" height="30" uuid="a2456cbb-b0d1-4475-997d-d5d9d15d10f7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47722b06-560e-4aad-b006-9e7f104c4054"/>
+				</reportElement>
+				<text><![CDATA[state]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="0" width="100" height="30" uuid="04620538-09fc-4585-8e90-782907365bca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae46c9c0-a528-463a-be33-eef22171b080"/>
+				</reportElement>
+				<text><![CDATA[country]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="18" y="5" width="100" height="30" uuid="5988bd7d-862f-497e-9b31-b8870cbb7561">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47722b06-560e-4aad-b006-9e7f104c4054"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="7" width="100" height="30" uuid="63dbdfcf-24eb-4e9c-b475-f531e0db8518">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ae46c9c0-a528-463a-be33-eef22171b080"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

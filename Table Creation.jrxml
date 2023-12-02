@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Table Creation" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af314510-e67a-468b-b43d-18ca46bbe75e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+	<subDataset name="Table Creation" uuid="58d1e1c2-fb14-43cd-a282-f6891a191291">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+		<queryString>
+			<![CDATA[select 
+division, 
+count (employee_id) as emp_count
+from employees e  
+join departments d ON d.department=e.department
+group by division]]>
+		</queryString>
+	</subDataset>
+	<subDataset name="Dataset1" uuid="caa158dc-c000-46e3-8380-23b7c7ca6c23">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+		<queryString language="SQL">
+			<![CDATA[select * from employees]]>
+		</queryString>
+		<field name="employee_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="employee_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="employee_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="first_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="first_name"/>
+			<property name="com.jaspersoft.studio.field.label" value="first_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="last_name" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="last_name"/>
+			<property name="com.jaspersoft.studio.field.label" value="last_name"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="department" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="department"/>
+			<property name="com.jaspersoft.studio.field.label" value="department"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="gender" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="gender"/>
+			<property name="com.jaspersoft.studio.field.label" value="gender"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<field name="salary" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="salary"/>
+			<property name="com.jaspersoft.studio.field.label" value="salary"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+		</field>
+		<group name="employee_id">
+			<groupExpression><![CDATA[$F{employee_id}]]></groupExpression>
+		</group>
+		<group name="first_name">
+			<groupExpression><![CDATA[$F{first_name}]]></groupExpression>
+		</group>
+		<group name="last_name">
+			<groupExpression><![CDATA[$F{last_name}]]></groupExpression>
+		</group>
+		<group name="department">
+			<groupExpression><![CDATA[$F{department}]]></groupExpression>
+		</group>
+		<group name="gender">
+			<groupExpression><![CDATA[$F{gender}]]></groupExpression>
+		</group>
+		<group name="salary">
+			<groupExpression><![CDATA[$F{salary}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Table creation" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+division, 
+count (employee_id) as emp_count
+from employees e  
+join departments d ON d.department=e.department
+group by division]]>
+	</queryString>
+	<field name="division" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="division"/>
+		<property name="com.jaspersoft.studio.field.label" value="division"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="departments"/>
+	</field>
+	<field name="emp_count" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emp_count"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_count"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="260" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="205" splitType="Stretch"/>
+	</summary>
+</jasperReport>

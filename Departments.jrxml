@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Departments" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15b92132-1b65-469d-8c21-419dcb94f63c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+	<style name="Alternate row color">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F2FCFC"/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[select department,count(employee_id) as employee_count
+From employees
+group by department]]>
+	</queryString>
+	<field name="department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department"/>
+		<property name="com.jaspersoft.studio.field.label" value="department"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<field name="employee_count" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="employee_count"/>
+		<property name="com.jaspersoft.studio.field.label" value="employee_count"/>
+	</field>
+	<sortField name="employee_count"/>
+	<group name="department">
+		<groupExpression><![CDATA[$F{department}]]></groupExpression>
+	</group>
+	<group name="employee_count">
+		<groupExpression><![CDATA[$F{employee_count}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="-1" width="542" height="31" forecolor="#FFFFFF" backcolor="#3300FF" uuid="0009a084-d232-445c-ba10-0e9203831de6"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="250" height="30" forecolor="#FFFFFF" backcolor="#3300FF" uuid="ab441d1e-d2fe-40b4-a457-12d6fc6ba68c">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b2bb457-e222-4b42-b95e-50a0f2b2212c"/>
+					</reportElement>
+					<box topPadding="8">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Department]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="250" y="0" width="160" height="30" forecolor="#FFFFFF" backcolor="#3300FF" uuid="6dd853ea-6a32-426c-9773-58cb9cb2738a">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00b6bd21-3c13-4295-b65f-11ab0876d602"/>
+					</reportElement>
+					<box topPadding="5">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Employee Count]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="410" y="0" width="132" height="30" forecolor="#FFFFFF" backcolor="#3300FF" uuid="796ffe47-abad-403e-b346-2e9fb10d78fb">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00b6bd21-3c13-4295-b65f-11ab0876d602"/>
+					</reportElement>
+					<box topPadding="5">
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Department Size]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="-1" width="542" height="31" isRemoveLineWhenBlank="true" uuid="ad54376b-7060-472f-860a-cb29726cb07f">
+					<printWhenExpression><![CDATA[!$F{department}.equals("Sports") &&!$F{department}.equals("Tools")]]></printWhenExpression>
+				</reportElement>
+				<textField>
+					<reportElement style="Alternate row color" x="0" y="2" width="250" height="30" isRemoveLineWhenBlank="true" uuid="636977c0-0aaa-4e3f-9825-469602d64649">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b2bb457-e222-4b42-b95e-50a0f2b2212c"/>
+					</reportElement>
+					<box topPadding="8">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Alternate row color" x="250" y="2" width="160" height="30" isRemoveLineWhenBlank="true" uuid="6cbae282-ef2a-4486-a3af-9ab93e730244">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00b6bd21-3c13-4295-b65f-11ab0876d602"/>
+					</reportElement>
+					<box topPadding="8">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{employee_count}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Alternate row color" x="410" y="1" width="132" height="31" isRemoveLineWhenBlank="true" uuid="17f23289-a554-4a82-a6b6-3c48e87485ee">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00b6bd21-3c13-4295-b65f-11ab0876d602"/>
+					</reportElement>
+					<box topPadding="8">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[($F{employee_count} >5 && $F{employee_count} <=20) ? "Small Department" :
+($F{employee_count} >21 && $F{employee_count} <=40) ? "Medium Department" : 
+$F{employee_count} >40  ? "Bigger Department" : ""]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

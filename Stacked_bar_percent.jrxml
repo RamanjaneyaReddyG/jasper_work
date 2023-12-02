@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 8.2.0.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Stacked_bar_percent" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e250885a-710a-4603-8aa5-47ce2e239b1d">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+country,
+gender,
+count(employee_id) as emp_count
+from employees e
+join regions r on e.region_id=r.region_id
+group by country,gender;]]>
+	</queryString>
+	<field name="country" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="country"/>
+		<property name="com.jaspersoft.studio.field.label" value="country"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="regions"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<field name="emp_count" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emp_count"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_count"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<summary>
+		<band height="370" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="0" width="510" height="150" uuid="a1478b24-0217-48d4-b020-da8ab0754335"/>
+				<hc:chart xmlns:hc="http://jaspersoft.com/highcharts" xsi:schemaLocation="http://jaspersoft.com/highcharts http://jaspersoft.com/schema/highcharts.xsd" type="StackedPercentBar">
+					<hc:chartSetting name="default">
+						<hc:chartProperty name="title.text" value=""/>
+						<hc:chartProperty name="credits.enabled" value="false"/>
+						<hc:chartProperty name="credits.href" value=""/>
+						<hc:chartProperty name="credits.text" value=""/>
+						<hc:chartProperty name="yAxis.title.text" value=""/>
+						<hc:chartProperty name="chart.zoomType" value="xy"/>
+						<hc:chartProperty name="com.jaspersoft.studio.highcharts.dataconfiguration.simple" value="true"/>
+						<hc:chartProperty name="plotOptions.series.dataLabels.enabled_customSimpleMode" value="true"/>
+						<hc:chartProperty name="plotOptions.series.dataLabels.enabled">
+							<hc:propertyExpression><![CDATA[true]]></hc:propertyExpression>
+						</hc:chartProperty>
+						<hc:chartProperty name="plotOptions.series.dataLabels.format" value="{point.percentage:.2f} %"/>
+					</hc:chartSetting>
+					<multiAxisData>
+						<multiAxisDataset/>
+						<dataAxis axis="Rows">
+							<axisLevel name="Country">
+								<labelExpression><![CDATA["Level Label expression"]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{country}]]></bucketExpression>
+									<labelExpression><![CDATA[$F{country}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<dataAxis axis="Columns">
+							<axisLevel name="gender">
+								<labelExpression><![CDATA[]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{gender}]]></bucketExpression>
+									<labelExpression><![CDATA[$F{gender}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<multiAxisMeasure name="Measure1" class="java.lang.Number" calculation="Nothing">
+							<labelExpression><![CDATA["Emp Count:"]]></labelExpression>
+							<valueExpression><![CDATA[$F{emp_count}]]></valueExpression>
+						</multiAxisMeasure>
+					</multiAxisData>
+					<hc:series name="Measure1"/>
+				</hc:chart>
+			</componentElement>
+			<componentElement>
+				<reportElement x="30" y="160" width="480" height="210" uuid="eb834640-557e-4d63-9c05-d6bd07c96a46"/>
+				<hc:chart xmlns:hc="http://jaspersoft.com/highcharts" xsi:schemaLocation="http://jaspersoft.com/highcharts http://jaspersoft.com/schema/highcharts.xsd" type="StackedPercentColumn">
+					<hc:chartSetting name="default">
+						<hc:chartProperty name="title.text" value=""/>
+						<hc:chartProperty name="credits.enabled" value="false"/>
+						<hc:chartProperty name="credits.href" value=""/>
+						<hc:chartProperty name="credits.text" value=""/>
+						<hc:chartProperty name="yAxis.title.text" value=""/>
+						<hc:chartProperty name="chart.zoomType" value="xy"/>
+						<hc:chartProperty name="plotOptions.series.dataLabels.enabled_customSimpleMode" value="true"/>
+						<hc:chartProperty name="plotOptions.series.dataLabels.enabled">
+							<hc:propertyExpression><![CDATA[true]]></hc:propertyExpression>
+						</hc:chartProperty>
+						<hc:chartProperty name="plotOptions.series.dataLabels.format" value="{point.percentage:.2f} %"/>
+					</hc:chartSetting>
+					<multiAxisData>
+						<multiAxisDataset/>
+						<dataAxis axis="Rows">
+							<axisLevel name="Level1">
+								<labelExpression><![CDATA["Level Label expression"]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{country}]]></bucketExpression>
+									<labelExpression><![CDATA[$F{country}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<dataAxis axis="Columns">
+							<axisLevel name="gen">
+								<labelExpression><![CDATA[]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{gender}]]></bucketExpression>
+									<labelExpression><![CDATA[$F{gender}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<multiAxisMeasure name="Measure1" class="java.lang.Number" calculation="Nothing">
+							<labelExpression><![CDATA["Emp COunt:"]]></labelExpression>
+							<valueExpression><![CDATA[$F{emp_count}]]></valueExpression>
+						</multiAxisMeasure>
+					</multiAxisData>
+					<hc:series name="Measure1"/>
+				</hc:chart>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>

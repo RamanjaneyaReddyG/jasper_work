@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 8.2.0.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Charts" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="90a17bf7-54fe-4d06-8e20-68b6cf1bc5dd">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Postgres DB"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+department,
+count(employee_id) as emp_count
+
+ from employees
+ group by department]]>
+	</queryString>
+	<field name="department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department"/>
+		<property name="com.jaspersoft.studio.field.label" value="department"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employees"/>
+	</field>
+	<field name="emp_count" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emp_count"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_count"/>
+	</field>
+	<summary>
+		<band height="440" splitType="Stretch">
+			<componentElement>
+				<reportElement x="0" y="10" width="550" height="430" uuid="ad07b1ed-f2b6-4603-bf8d-b54a3fac00f1"/>
+				<hc:chart xmlns:hc="http://jaspersoft.com/highcharts" xsi:schemaLocation="http://jaspersoft.com/highcharts http://jaspersoft.com/schema/highcharts.xsd" type="Pie">
+					<hc:chartSetting name="default">
+						<hc:chartProperty name="title.text" value=""/>
+						<hc:chartProperty name="credits.enabled" value="false"/>
+						<hc:chartProperty name="credits.href" value=""/>
+						<hc:chartProperty name="credits.text" value=""/>
+						<hc:chartProperty name="yAxis.title.text" value=""/>
+						<hc:chartProperty name="chart.zoomType" value="xy"/>
+						<hc:chartProperty name="plotOptions.pie.showInLegend" value="true"/>
+						<hc:chartProperty name="plotOptions.series.dataLabels.enabled_customSimpleMode" value="true"/>
+						<hc:chartProperty name="plotOptions.series.dataLabels.enabled">
+							<hc:propertyExpression><![CDATA[true]]></hc:propertyExpression>
+						</hc:chartProperty>
+						<hc:chartProperty name="plotOptions.series.dataLabels.format" value="{point.percentage:.2f} %"/>
+					</hc:chartSetting>
+					<multiAxisData>
+						<multiAxisDataset>
+							<dataset>
+								<incrementWhenExpression><![CDATA[$F{department}.contains("B") ]]></incrementWhenExpression>
+							</dataset>
+						</multiAxisDataset>
+						<dataAxis axis="Rows">
+							<axisLevel name="Dept">
+								<labelExpression><![CDATA["Level Label expression"]]></labelExpression>
+								<axisLevelBucket class="java.lang.Comparable">
+									<bucketExpression><![CDATA[$F{department}]]></bucketExpression>
+									<labelExpression><![CDATA["Dept: "+$F{department}]]></labelExpression>
+								</axisLevelBucket>
+							</axisLevel>
+						</dataAxis>
+						<dataAxis axis="Columns"/>
+						<multiAxisMeasure name="Measure1" class="java.lang.Number" calculation="Nothing">
+							<labelExpression><![CDATA["Emp Count:"]]></labelExpression>
+							<valueExpression><![CDATA[$F{emp_count}]]></valueExpression>
+						</multiAxisMeasure>
+					</multiAxisData>
+					<hc:series name="Measure1"/>
+				</hc:chart>
+			</componentElement>
+		</band>
+	</summary>
+</jasperReport>
